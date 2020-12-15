@@ -1,7 +1,7 @@
 # directories:
-# - /compile/doc/stable - the files in this dir
-# - /compile/source/linux-stable - the kernel sources checked out from gitrepo
-# - /compile/result/stable - the resulting kernel, modules etc. tar.gz files
+# - /compile/doc/stable-rp - the files in this dir
+# - /compile/source/linux-stable-rp - the kernel sources checked out from gitrepo
+# - /compile/result/stable-rp - the resulting kernel, modules etc. tar.gz files
 
 # patches:
 # none so far
