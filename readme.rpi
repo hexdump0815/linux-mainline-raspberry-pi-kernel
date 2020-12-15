@@ -1,0 +1,48 @@
+# directories:
+# - /compile/doc/stable - the files in this dir
+# - /compile/source/linux-stable - the kernel sources checked out from gitrepo
+# - /compile/result/stable - the resulting kernel, modules etc. tar.gz files
+
+# patches:
+# none so far
+
+cp /compile/doc/stable-rp/config.rpi /compile/source/linux-stable-rp/.config
+cd /compile/source/linux-stable-rp
+
+# git pull
+export ARCH=arm64
+# make defconfig + fix options - see misc.rpi/options
+make oldconfig
+#make -j 4 CFLAGS="-march=armv8-a+crc -mtune=cortex-a72" CXXFLAGS="-march=armv8-a+crc -mtune=cortex-a72" Image dtbs modules
+make -j 4 Image dtbs modules
+cd tools/perf
+make
+cd ../power/cpupower
+make
+cd ../../..
+export kver=`make kernelrelease`
+echo ${kver}
+# remove debug info if there and wanted
+# find . -type f -name '*.ko' | sudo xargs -n 1 objcopy --strip-unneeded
+make modules_install
+mkdir -p /lib/modules/${kver}/tools
+cp -v tools/perf/perf /lib/modules/${kver}/tools
+cp -v tools/power/cpupower/cpupower /lib/modules/${kver}/tools
+cp -v tools/power/cpupower/libcpupower.so.0.0.1 /lib/modules/${kver}/tools/libcpupower.so.0
+# make headers_install INSTALL_HDR_PATH=/usr
+cp -v .config /boot/config-${kver}
+# for rpi
+cp -v arch/arm64/boot/Image /boot/Image-${kver}
+# in case that is needed anywhere
+mkimage -A arm64 -O linux -T kernel -C none -a 0x1080000 -e 0x1080000 -n linux-${kver} -d arch/arm64/boot/Image /boot/uImage-${kver}
+mkdir /boot/dtb-${kver}
+cp -v arch/arm64/boot/dts/broadcom/bcm*-rpi-*.dtb /boot/dtb-${kver}/
+cp -v System.map /boot/System.map-${kver}
+cd /boot
+update-initramfs -c -k ${kver}
+mkimage -A arm64 -O linux -T ramdisk -a 0x0 -e 0x0 -n initrd.img-${kver} -d initrd.img-${kver} uInitrd-${kver}
+tar cvzf /compile/source/linux-stable-rp/${kver}.tar.gz /boot/*-${kver} /lib/modules/${kver}
+cp -v /compile/doc/stable-rp/config.rpi /compile/doc/stable-rp/config.rpi.old
+cp -v /compile/source/linux-stable-rp/.config /compile/doc/stable-rp/config.rpi
+cp -v /compile/source/linux-stable-rp/.config /compile/doc/stable-rp/config.rpi-${kver}
+cp -v /compile/source/linux-stable-rp/*.tar.gz /compile/result/stable-rp
