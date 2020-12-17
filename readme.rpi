@@ -2,6 +2,7 @@
 # - /compile/doc/stable-rp - the files in this dir
 # - /compile/source/linux-stable-rp - the kernel sources checked out from gitrepo
 # - /compile/result/stable-rp - the resulting kernel, modules etc. tar.gz files
+# name: stb-rpi
 
 # patches:
 # none so far
