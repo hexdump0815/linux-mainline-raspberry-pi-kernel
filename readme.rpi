@@ -5,7 +5,10 @@
 # name: stb-rpi
 
 # patches:
-# none so far
+# v5.4 - fix v3d power setup for rpi3
+patch -p1 < /compile/doc/stable-rp/misc.rpi/patches/rpi3-v3d-power-fix.patch
+# fix a typo to be able to enable the v3d driver
+patch -p1 < /compile/doc/stable-rp/misc.rpi/patches/fix-v3d-typo.patch
 
 cp /compile/doc/stable-rp/config.rpi /compile/source/linux-stable-rp/.config
 cd /compile/source/linux-stable-rp
