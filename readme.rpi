@@ -12,6 +12,8 @@ cd /compile/source/linux-stable-rpi
 #patch -p1 < /compile/doc/stable-rp/misc.rpi/patches/rpi3-v3d-power-fix.patch
 # fix a typo to be able to enable the v3d driver - no longer needed with v5.16
 #patch -p1 < /compile/doc/stable-rp/misc.rpi/patches/fix-v3d-typo.patch
+# add v3d gpu accel support to make mesa opengl work on the rpi4
+patch -p1 < /compile/doc/stable-rp/misc.rpi/patches/rpi4-v3d-integration.patch
 
 export ARCH=arm64
 scripts/kconfig/merge_config.sh -m arch/arm64/configs/defconfig /compile/doc/kernel-config-options/docker-options.cfg /compile/doc/kernel-config-options/options-to-remove-generic.cfg /compile/doc/stable-rp/misc.rpi/options/options-to-remove-special.cfg /compile/doc/kernel-config-options/additional-options-generic.cfg /compile/doc/kernel-config-options/additional-options-aarch64.cfg /compile/doc/stable-rp/misc.rpi/options/additional-options-special.cfg
