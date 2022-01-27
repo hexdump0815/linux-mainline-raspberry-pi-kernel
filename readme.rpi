@@ -8,8 +8,8 @@
 cd /compile/source/linux-stable-rpi
 
 # patches:
-# v5.4 - fix v3d power setup for rpi3
-patch -p1 < /compile/doc/stable-rp/misc.rpi/patches/rpi3-v3d-power-fix.patch
+# v5.4 - fix v3d power setup for rpi3 - not sure if this is really required still
+#patch -p1 < /compile/doc/stable-rp/misc.rpi/patches/rpi3-v3d-power-fix.patch
 # fix a typo to be able to enable the v3d driver - no longer needed with v5.16
 #patch -p1 < /compile/doc/stable-rp/misc.rpi/patches/fix-v3d-typo.patch
 
