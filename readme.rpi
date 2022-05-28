@@ -3,7 +3,7 @@
 # - /compile/source/linux-stable-rpi - the kernel sources checked out from gitrepo
 # - /compile/result/stable-rp - the resulting kernel, modules etc. tar.gz files
 # - /compile/doc/kernel-config-options - https://github.com/hexdump0815/kernel-config-options
-# name: stb-rpi
+# name: stb-rpi - raspberry-pi
 
 cd /compile/source/linux-stable-rpi
 
