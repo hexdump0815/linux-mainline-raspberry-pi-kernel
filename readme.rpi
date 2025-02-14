@@ -19,7 +19,7 @@ cd /compile/source/linux-stable-rpi
 # add v3d gpu accel support to make mesa opengl work on the rpi4 - should be no longer needed with v6.1
 #patch -p1 < /compile/doc/stable-rp/misc.rpi/patches/rpi4-v3d-integration.patch
 # fix kernel version number: + instead of -dirty at the end
-patch -p1 < /compile/doc/kernel-extra-patches/fix-kernel-version/v6.6.patch
+patch -p1 < /compile/doc/kernel-extra-patches/fix-kernel-version/v6.12.5.patch
 
 export ARCH=arm64
 scripts/kconfig/merge_config.sh -m arch/arm64/configs/defconfig /compile/doc/kernel-config-options/docker-options.cfg /compile/doc/kernel-config-options/options-to-remove-generic.cfg /compile/doc/stable-rp/misc.rpi/options/options-to-remove-special.cfg /compile/doc/kernel-config-options/additional-options-generic.cfg /compile/doc/kernel-config-options/additional-options-aarch64.cfg /compile/doc/stable-rp/misc.rpi/options/additional-options-special.cfg
